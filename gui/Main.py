@@ -5,9 +5,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QToolBar, QFileDialog, QMessageBox, QMainWindow
 
-from PBDD import BDD
 from prog.Alphabet import decryptVigenere, encryptVigenere, decryptCaesar, encryptCaesar
-from prog.lfsr import LFSR
 
 
 class Window(QMainWindow):
