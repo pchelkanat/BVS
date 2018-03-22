@@ -95,12 +95,12 @@ class Window(QMainWindow):
         self.labelKey = QtWidgets.QLabel(self.horizontalLayoutWidget)
         self.labelKey.setText("<h3>Ключ: </h3>")
         self.keyLine = QtWidgets.QLineEdit(self.horizontalLayoutWidget)
-        self.generationButton = QtWidgets.QPushButton(self.horizontalLayoutWidget)
-        self.generationButton.setText("Генерировать")
-        self.generationButton.setStatusTip("Генерировать")
+        #self.generationButton = QtWidgets.QPushButton(self.horizontalLayoutWidget)
+        #self.generationButton.setText("Генерировать")
+        #self.generationButton.setStatusTip("Генерировать")
         self.option2HLayout.addWidget(self.labelKey)
         self.option2HLayout.addWidget(self.keyLine)
-        self.option2HLayout.addWidget(self.generationButton)
+        #self.option2HLayout.addWidget(self.generationButton)
         self.LeftVlLayout.addLayout(self.option2HLayout)
 
         self.label2Input = QtWidgets.QLabel(self.horizontalLayoutWidget)
@@ -265,22 +265,22 @@ class Window(QMainWindow):
     def EncryptG(self):
         key = self.keyLine.text()
         key = key.upper()
-        word = str(self.textInput.toPlainText())
-        word = word.upper().replace(' ', '')
+        word = str(self.text2Input.toPlainText())
+        #word = word.upper().replace(' ', '')
 
         from prog.Gamma import encryptGamma
-        text= encryptGamma(key,word)
+        text= encryptGamma(word,key)
         self.text2Output.setPlainText(text)
 
 
     def DecryptG(self):
         key = self.keyLine.text()
         key = key.upper()
-        word = str(self.textInput.toPlainText())
-        word = word.upper().replace(' ', '')
+        word = str(self.text2Input.toPlainText())
+        #word = word.upper().replace(' ', '')
 
         from prog.Gamma import decryptGamma
-        text = decryptGamma(key, word)
+        text = decryptGamma(word,key)
         self.text2Output.setPlainText(text)
 
     def Egcd(self):
