@@ -142,7 +142,7 @@ class Window(QMainWindow):
 
         self.LeftVlLayout = QtWidgets.QVBoxLayout()
 
-        self.option2HLayout = QtWidgets.QHBoxLayout()
+        self.option3HLayout = QtWidgets.QHBoxLayout()
         self.labelKeyA = QtWidgets.QLabel(self.horizontalLayoutWidget)
         self.labelKeyA.setText("<h3>A: </h3>")
         self.keyLineA = QtWidgets.QLineEdit(self.horizontalLayoutWidget)
@@ -153,13 +153,13 @@ class Window(QMainWindow):
         self.solveButton = QtWidgets.QPushButton(self.horizontalLayoutWidget)
         self.solveButton.setText("Решить")
         self.solveButton.setStatusTip("Посчитать НОД (A,B)")
-        self.option2HLayout.addWidget(self.labelKeyA)
-        self.option2HLayout.addWidget(self.keyLineA)
-        self.option2HLayout.addWidget(self.labelKeyB)
-        self.option2HLayout.addWidget(self.keyLineB)
-        self.option2HLayout.addWidget(self.solveButton)
+        self.option3HLayout.addWidget(self.labelKeyA)
+        self.option3HLayout.addWidget(self.keyLineA)
+        self.option3HLayout.addWidget(self.labelKeyB)
+        self.option3HLayout.addWidget(self.keyLineB)
+        self.option3HLayout.addWidget(self.solveButton)
         self.solveButton.clicked.connect(self.Egcd)
-        self.LeftVlLayout.addLayout(self.option2HLayout)
+        self.LeftVlLayout.addLayout(self.option3HLayout)
 
         self.label3Output = QtWidgets.QLabel(self.horizontalLayoutWidget)
         self.label3Output.setText("<h3>Вывод результата:</h4>")
@@ -169,7 +169,52 @@ class Window(QMainWindow):
 
         self.MainLayout.addLayout(self.LeftVlLayout)
 
-        self.tabWidget.addTab(self.tab3, "РАЕ")
+        self.tabWidget.addTab(self.tab3, "Расширенный алгоритм Евклида")
+
+
+        ########____ВКЛАДКА__4__
+        self.tab4 = QtWidgets.QWidget()
+        self.horizontalLayoutWidget = QtWidgets.QWidget(self.tab4)
+        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(5, 5, 475, 320))
+
+        self.MainLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
+        self.MainLayout.setContentsMargins(0, 0, 0, 0)
+
+        self.LeftVlLayout = QtWidgets.QVBoxLayout()
+
+        self.option4HLayout = QtWidgets.QHBoxLayout()
+        self.labelKeyA = QtWidgets.QLabel(self.horizontalLayoutWidget)
+        self.labelKeyA.setText("<h3>a: </h3>")
+        self.keyLineA = QtWidgets.QLineEdit(self.horizontalLayoutWidget)
+        self.labelKeyB = QtWidgets.QLabel(self.horizontalLayoutWidget)
+        self.labelKeyB.setText("<h3>b: </h3>")
+        self.keyLineB = QtWidgets.QLineEdit(self.horizontalLayoutWidget)
+        self.labelKeyM = QtWidgets.QLabel(self.horizontalLayoutWidget)
+        self.labelKeyM.setText("<h3>mod: </h3>")
+        self.keyLineM = QtWidgets.QLineEdit(self.horizontalLayoutWidget)
+
+        self.solveButton = QtWidgets.QPushButton(self.horizontalLayoutWidget)
+        self.solveButton.setText("Решить")
+        self.solveButton.setStatusTip("Возвести в степень")
+        self.option4HLayout.addWidget(self.labelKeyA)
+        self.option4HLayout.addWidget(self.keyLineA)
+        self.option4HLayout.addWidget(self.labelKeyB)
+        self.option4HLayout.addWidget(self.keyLineB)
+        self.option4HLayout.addWidget(self.labelKeyM)
+        self.option4HLayout.addWidget(self.keyLineM)
+        self.option4HLayout.addWidget(self.solveButton)
+        self.solveButton.clicked.connect(self.PowMod)
+        self.LeftVlLayout.addLayout(self.option4HLayout)
+
+        self.label4Output = QtWidgets.QLabel(self.horizontalLayoutWidget)
+        self.label4Output.setText("<h3>Вывод результата:</h4>")
+        self.text4Output = QtWidgets.QPlainTextEdit(self.horizontalLayoutWidget)
+        self.LeftVlLayout.addWidget(self.label4Output)
+        self.LeftVlLayout.addWidget(self.text4Output)
+
+        self.MainLayout.addLayout(self.LeftVlLayout)
+
+        self.tabWidget.addTab(self.tab4, "Быстрое возведение в степень")
 
         self.setCentralWidget(self.centralwidget)
         self.tabWidget.setCurrentIndex(0)
@@ -266,7 +311,6 @@ class Window(QMainWindow):
         key = self.keyLine.text()
         key = key.upper()
         word = str(self.text2Input.toPlainText())
-        #word = word.upper().replace(' ', '')
 
         from prog.Gamma import encryptGamma
         text= encryptGamma(word,key)
@@ -277,7 +321,6 @@ class Window(QMainWindow):
         key = self.keyLine.text()
         key = key.upper()
         word = str(self.text2Input.toPlainText())
-        #word = word.upper().replace(' ', '')
 
         from prog.Gamma import decryptGamma
         text = decryptGamma(word,key)
@@ -290,6 +333,15 @@ class Window(QMainWindow):
         from prog.EGCD import egcd
         num = str(egcd(A,B))
         self.text3Output.setPlainText("X, Y, НОД(A,B): "+num)
+
+    def PowMod(self):
+        a=int(self.keyLineA.text())
+        b=int(self.keyLineB.text())
+        n=int(self.keyLineM.text())
+
+        from prog.PowMod import powmod
+        bbin, ar, res =powmod(a,b,n)
+        self.text4Output.setPlainText("b:"+bbin+"\n"+"ar:"+ar+"\n\n"+"a**b mod n = "+res)
 
 
 
