@@ -12,7 +12,7 @@ def powmod(a, b, n):
     return b,ar,ar[len(ar) - 1]
 
 
-print(powmod(2, 50, 21))
-print(powmod(3, 145, 45))
-print(powmod(2, 100, 27))
-print(powmod(3, 200, 55))
+#print(powmod(2, 50, 21))
+#print(powmod(3, 145, 45))
+#print(powmod(2, 100, 27))
+#print(powmod(3, 200, 55))
