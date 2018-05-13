@@ -1,29 +1,26 @@
 from itertools import cycle
 
 
-def gengamma():
-    gamma=[]
-    return gamma
-
 def encryptGamma(text, gamma):
-    code=[]
-    #print(str(text),str(code),str(gamma))
-    for i,j in zip(text, cycle(gamma)):
-        #print(ord(i),ord(j),ord(i) ^ ord(j))
-        code.append(chr(ord(i)^ord(j)))
-        #print(code)
+    code = []
+    # print(str(text),str(code),str(gamma))
+    for i, j in zip(text, cycle(gamma)):
+        # print(ord(i),ord(j),ord(i) ^ ord(j))
+        code.append(chr(ord(i) ^ ord(j)))
+        # print(code)
     return ''.join(code)
 
+
 def decryptGamma(code, gamma):
-    text=[]
-    #print(str(text), str(code), str(gamma))
+    text = []
+    # print(str(text), str(code), str(gamma))
     for i, j in zip(code, cycle(gamma)):
-        #print(ord(i),ord(j),ord(i)^ord(j))
-        text.append(chr(ord(i)^ord(j)))
-        #print(text)
+        # print(ord(i),ord(j),ord(i)^ord(j))
+        text.append(chr(ord(i) ^ ord(j)))
+        # print(text)
 
     return ''.join(text)
 
 
-print(encryptGamma("нввфыап","ssdd"))
-print(chr(23),chr(2), 100^115)
+    # print(encryptGamma("нввфыап","ssdd"))
+    # print(chr(23),chr(2), 100^115)

@@ -3,18 +3,18 @@ alphabet = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', '�
             'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я']
 
 
-###mod 26
-def encryptVigenere(gamma, text):
+###mod 33
+def encryptVigenere(key, text):
     textLen = len(text)
-    gammaLen = len(gamma)
+    keyLen = len(key)
 
-    # Формируем ключевое слово(растягиваем гамму на длину текста)
+    # Формируем ключевое слово(растягиваем ключ на длину текста)
     keyText = []
-    for i in range(textLen // gammaLen):
-        for symb in gamma:
+    for i in range(textLen // keyLen):
+        for symb in key:
             keyText.append(symb)
-    for i in range(textLen % gammaLen):
-        keyText.append(gamma[i])
+    for i in range(textLen % keyLen):
+        keyText.append(key[i])
 
     # Шифрование
     code = []
@@ -24,17 +24,17 @@ def encryptVigenere(gamma, text):
     return ''.join(code)
 
 
-def decryptVigenere(gamma, code):
+def decryptVigenere(key, code):
     codeLen = len(code)
-    gammaLen = len(gamma)
+    keyLen = len(key)
 
-    # Формируем ключевое слово(растягиваем гамму на длину текста)
+    # Формируем ключевое слово(растягиваем ключ на длину текста)
     keyText = []
-    for i in range(codeLen // gammaLen):
-        for symb in gamma:
+    for i in range(codeLen // keyLen):
+        for symb in key:
             keyText.append(symb)
-    for i in range(codeLen % gammaLen):
-        keyText.append(gamma[i])
+    for i in range(codeLen % keyLen):
+        keyText.append(key[i])
 
     # Расшифровка
     text = []
@@ -45,20 +45,21 @@ def decryptVigenere(gamma, code):
 
 
 def encryptCaesar(key, text):
+    print(key,type(key))
+    key=int(key)%33
+    print(key)
     code = []
     for i in range(len(text)):
-        code.append(alphabet[(alphabet.index(text[i]) + int(key)) % 33])
+        code.append(alphabet[(alphabet.index(text[i]) + key) % 33])
 
     return ''.join(code)
 
 
 def decryptCaesar(key, code):
+    print(key,type(key))
+    key = int(key) % 33
     text = []
     for i in range(len(code)):
-        text.append(alphabet[(alphabet.index(code[i]) - int(key)) % 33])
+        text.append(alphabet[(alphabet.index(code[i]) - key) % 33])
 
     return ''.join(text)
-
-
-if __name__ == "__main__":
-    print(decryptVigenere("ВОПОЫ", "НШКЩУЗДЛСЧ"))
