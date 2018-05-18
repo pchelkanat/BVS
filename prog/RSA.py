@@ -1,8 +1,11 @@
+import random
 from math import gcd
-from random import getrandbits
 
 from prog.EGCD import egcd
-from prog.MRPT import MillerRabin
+from prog.mr import isPrime
+
+bits = 128
+nbits = bits * 2
 
 
 def modInverse(phi, e):
@@ -28,58 +31,62 @@ def EulerPhi(n):
 
 
 def getPrime(bits):
-    n = 1
-    while not MillerRabin(n):
-        # n=randint(bits)
-        n = getrandbits(bits)
-
-    return n
+    while True:
+        num = random.randrange(2 ** (bits - 1), 2 ** (bits))
+        if isPrime(num):
+            return num
 
 
-def generateKeys(nbits):
-    p = getPrime(8)
-    q = getPrime(8)
+def generateKeys(bits):
+    p = getPrime(bits)
+    q = getPrime(bits)
     while p == q:
-        q = getPrime(8)
+        q = getPrime(bits)
 
     n = p * q
     phi = (p - 1) * (q - 1)
+    print("primes, n:", p, q, n)
+    print("phi", phi)
 
     # public=(e,n)
     # private= d, тчо НОД(d,n)=1
     good_d = False
     while not good_d:
-        e = getrandbits(nbits // 3)
-        # e = randint(0, n - 1)
+        # e = getrandbits(2*bits // 3)
+        e = random.randrange(2 ** (nbits // 3 - 1), 2 ** (nbits // 3))
         if gcd(e, phi) == 1:
             good_d = True
 
     d = modInverse(phi, e)
-    #print("primes:", p, q)
-    #print("phi", phi)
-    #print("e,n,d", e, n, d)
-    #print("gcd", egcd(d, n))
+    print("e,n,d", e, n, d)
+    print("gcd (d,n)", egcd(d, n))
     return e, n, d
 
 
 # кодируем
 def encoding(m):
-    e, n, d = generateKeys(len(m) * 8)  # (len(str(m)))
+    e, n, d = generateKeys(bits)  # (len(str(m)))
     m_cod = []
     for i in range(len(m)):
-        m_cod.append(chr((ord(m[i]) ** e) % n))  # powmod(m, e, n)
-    return ''.join(m_cod), e, n, d
+        temp = pow(ord(m[i]), e, n)
+        m_cod.append(temp)
+    print("m_cod", m_cod)
+    return m_cod, e, n, d
 
 
 # декодируем
 def decoding(m_cod, n, d):
     m_encod = []
     for i in range(len(m_cod)):
-        m_encod.append(chr((ord(m_cod[i]) ** d) % n))  # powmod(m_cod, d, n)
+        temp = pow(m_cod[i], d, n)
+        #print("temp",temp)
+        m_encod.append(chr(temp%120000))
     # print("d", d)
     return ''.join(m_encod)
 
 
+# n = getrandbits(nbits)
+# print(n)
 """
 s = "akjoeit"
 bin = []
@@ -87,8 +94,8 @@ for ch in s:
     bin.append(ord(ch))
 print(bin)
 
-en, n, d = encoding(s)
-print("en", en,e, n, d)
-dec = decoding(en, n, d)
+m, e, n, d = encoding(s)
+print("en", m, e, n, d)
+dec = decoding(m, n, d)
 print(dec)
 """

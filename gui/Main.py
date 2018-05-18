@@ -456,7 +456,6 @@ class Window(QMainWindow):
 
         from prog.RSA import encoding
         result, e, n, d = encoding(m)
-        print(result, type(result))
         self.keyLineB6.setText(str(result))
         self.keyLineN6.setText(str(n))
         self.keyLineE6.setText(str(e))
@@ -464,12 +463,18 @@ class Window(QMainWindow):
 
     def RSAd(self):
         m_cod = self.keyLineB6.text()
+
+        import re
+        m_cod=re.findall('(\d+)', m_cod)
+        for i in range(len(m_cod)):
+            m_cod[i]=int(m_cod[i])
+
         n=int(self.keyLineN6.text())
         d=int(self.keyLineD6.text())
 
         from prog.RSA import decoding
-        result = decoding(m_cod, n, d)
-        self.text6Output.setPlainText(str(result))
+        result1 = decoding(m_cod, n, d)
+        self.text6Output.setPlainText(str(result1))
 
 
 def run():
