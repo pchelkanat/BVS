@@ -31,7 +31,7 @@ class Window(QMainWindow):
         self.tabWidget.setGeometry(QtCore.QRect(5, 5, 490, 355))
         self.tabWidget.setStyleSheet("")
 
-        """
+
         ########____ВКЛАДКА__1__
         self.tab1 = QtWidgets.QWidget()
         self.horizontalLayoutWidget = QtWidgets.QWidget(self.tab1)
@@ -78,8 +78,8 @@ class Window(QMainWindow):
         self.MainLayout.addLayout(self.LeftVlLayout)
 
         self.tabWidget.addTab(self.tab1, "Шифр Виженера и Шифр Цезаря")
-        """
-        """
+
+        
         ########____ВКЛАДКА__2__
         self.tab2 = QtWidgets.QWidget()
         self.horizontalLayoutWidget = QtWidgets.QWidget(self.tab2)
@@ -131,7 +131,7 @@ class Window(QMainWindow):
 
         self.tabWidget.addTab(self.tab2, "Шифр Гаммирования")
 
-        
+
         ########____ВКЛАДКА__3__
         self.tab3 = QtWidgets.QWidget()
         self.horizontalLayoutWidget = QtWidgets.QWidget(self.tab3)
@@ -249,7 +249,7 @@ class Window(QMainWindow):
 
         self.tabWidget.addTab(self.tab5, "Миллер-Рабин")
         
-        """
+
         ########____ВКЛАДКА__6__
         self.tab6 = QtWidgets.QWidget()
         self.horizontalLayoutWidget = QtWidgets.QWidget(self.tab6)
@@ -383,28 +383,32 @@ class Window(QMainWindow):
     def help(self):
         QMessageBox.information(self, 'Помощь', "??")
 
-    """
+
     def EncryptCV(self):
         key = self.keyLine.text()
         key = key.upper()
-        word = str(self.textInput.toPlainText())
+        word = str(self.text1Input.toPlainText())
         word = word.upper().replace('', '')
         if key.isalpha():
+            from prog.Alphabet import encryptVigenere
             text = encryptVigenere(key, word)
         elif key.isdigit():
+            from prog.Alphabet import encryptCaesar
             text = encryptCaesar(key, word)
-        self.textOutput.setPlainText(text)
+        self.text1Output.setPlainText(text)
 
     def DecryptCV(self):
         key = self.keyLine.text()
         key = key.upper()
-        word = str(self.textInput.toPlainText())
+        word = str(self.text1Input.toPlainText())
         word = word.upper().replace(' ', '')
         if key.isalpha():
+            from prog.Alphabet import decryptVigenere
             text = decryptVigenere(key, word)
         elif key.isdigit():
+            from prog.Alphabet import decryptCaesar
             text = decryptCaesar(key, word)
-        self.textOutput.setPlainText(text)
+        self.text1Output.setPlainText(text)
     
 
     def EncryptG(self):
@@ -424,7 +428,7 @@ class Window(QMainWindow):
         from prog.Gamma import decryptGamma
         text = decryptGamma(word, key)
         self.text2Output.setPlainText(text)
-    """
+
 
     def Egcd(self):
         A = int(self.keyLineA3.text())

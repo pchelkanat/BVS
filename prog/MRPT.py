@@ -38,6 +38,7 @@ def MillerRabin(n):
                 a = 0
                 break
         if a:
+            print()
             return False
     #print(countOfWitnesses)
     return True # Простое
